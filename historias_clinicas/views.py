@@ -1,11 +1,7 @@
-from rest_framework import generics
+from rest_framework import viewsets
 from .models import HistoriaClinica
 from .serializers import HistoriaClinicaSerializer
 
-class HistoriaClinicaListCreateView(generics.ListCreateAPIView):
-    queryset = HistoriaClinica.objects.all()
-    serializer_class = HistoriaClinicaSerializer
-
-class HistoriaClinicaDetailView(generics.RetrieveUpdateDestroyAPIView):
+class HistoriaClinicaViewSet(viewsets.ModelViewSet):
     queryset = HistoriaClinica.objects.all()
     serializer_class = HistoriaClinicaSerializer
