@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalle de Receta</title>
+</head>
+<body>
+    <h1>Detalle de Receta</h1>
+    <p>Nombre del paciente: {{ receta.nombre_paciente }}</p>
+    <p>Descripción: {{ receta.descripcion }}</p>
+    <img src="{{ receta.codigo_qr.url }}" alt="Código QR">
+</body>
+</html>

@@ -1,10 +1,10 @@
 from django.db import models
 from pacientes.models import Paciente
-from users.models import Medico
+from users.models import CustomUser
 
 class Receta(models.Model):
     paciente = models.ForeignKey(Paciente, on_delete=models.CASCADE, related_name='recetas')
-    medico = models.ForeignKey(Medico, on_delete=models.CASCADE, related_name='recetas')
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='algun_nombre_relacionado')
     fecha = models.DateField(auto_now_add=True)
     nombre_completo = models.CharField(max_length=200)
     dni = models.CharField(max_length=20)
