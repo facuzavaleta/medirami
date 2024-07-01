@@ -3,11 +3,6 @@ from pacientes.models import Paciente
 
 class HistoriaClinica(models.Model):
     paciente = models.ForeignKey(Paciente, on_delete=models.CASCADE)
-    edad = models.IntegerField()
-    sexo = models.CharField(max_length=1)
-    obra_social = models.CharField(max_length=100)
-    numero_afiliado = models.CharField(max_length=50)
-    dni = models.CharField(max_length=10)
     ultima_medicacion = models.CharField(max_length=255)
     dosis_diaria = models.CharField(max_length=255)
     app = models.TextField(verbose_name='Antecedentes Patológicos Personales')
