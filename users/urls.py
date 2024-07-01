@@ -3,7 +3,7 @@ from rest_framework.routers import DefaultRouter
 from .views import UserCreateView, MyTokenObtainPairView, MyTokenRefreshView, CustomUserViewSet
 
 router = DefaultRouter()
-router.register(r'', CustomUserViewSet, basename='user')
+router.register(r'users', CustomUserViewSet, basename='user')
 
 urlpatterns = [
     path('', include(router.urls)),
