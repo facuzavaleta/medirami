@@ -4,7 +4,14 @@ from django.contrib.auth.models import AbstractUser, Group, Permission
 class CustomUser(AbstractUser):
     email = models.EmailField(unique=True)
     is_medico = models.BooleanField(default=False)
-    is_asistente = models.BooleanField(default=False)
+    is_verified = models.BooleanField(default=False)  # Nuevo campo
+    supervisor = models.ForeignKey(
+        'self', 
+        on_delete=models.SET_NULL, 
+        null=True, 
+        blank=True, 
+        related_name='assistants'
+    )  # Nuevo campo
 
     groups = models.ManyToManyField(
         Group,

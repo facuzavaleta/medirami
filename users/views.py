@@ -15,7 +15,6 @@ class UserCreateView(generics.CreateAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
-
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 class CustomUserViewSet(viewsets.ModelViewSet):

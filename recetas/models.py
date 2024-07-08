@@ -4,12 +4,8 @@ from users.models import CustomUser
 
 class Receta(models.Model):
     paciente = models.ForeignKey(Paciente, on_delete=models.CASCADE, related_name='recetas')
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='algun_nombre_relacionado')
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='recetas')
     fecha = models.DateField(auto_now_add=True)
-    nombre_completo = models.CharField(max_length=200)
-    dni = models.CharField(max_length=20)
-    obra_social = models.CharField(max_length=100)
-    numero_afiliado = models.CharField(max_length=100)
     medicacion = models.CharField(max_length=200)
     droga = models.CharField(max_length=100)
     dosis = models.CharField(max_length=100)
