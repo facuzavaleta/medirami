@@ -1,6 +1,8 @@
 from django.db import models
 from pacientes.models import Paciente
 from users.models import CustomUser
+from django.utils import timezone
+from datetime import timedelta
 
 class Receta(models.Model):
     paciente = models.ForeignKey(Paciente, on_delete=models.CASCADE, related_name='recetas')
@@ -17,6 +19,12 @@ class Receta(models.Model):
     fecha_ultimo_laboratorio = models.DateField()
     proxima_fecha_empadronamiento = models.DateField()
     observaciones = models.TextField(blank=True, null=True)
+    viewed = models.BooleanField(default=False)
+    tiempo_de_vida = models.DurationField(default=timedelta(days=7))  # Default tiempo de vida de 7 días
 
     def __str__(self):
-        return f"Receta de {self.nombre_completo} por {self.medico} - {self.medicacion}"
+        return f"Receta de {self.paciente} por {self.user} - {self.medicacion}"
+
+    def is_expired(self):
+        expiration_date = self.fecha + self.tiempo_de_vida
+        return timezone.now() > expiration_date
