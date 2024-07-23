@@ -1,5 +1,6 @@
 from django.db import models
 from users.models import CustomUser
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 class Paciente(models.Model):
     SEXO_CHOICES = [
@@ -10,21 +11,21 @@ class Paciente(models.Model):
 
     PROVINCIAS_CHOICES = [
     ('Buenos Aires', 'Buenos Aires'),
-    ('CABA', 'Ciudad Autónoma de Buenos Aires'),
+    ('CABA', 'Ciudad Autonoma de Buenos Aires'),
     ('Catamarca', 'Catamarca'),
     ('Chaco', 'Chaco'),
     ('Chubut', 'Chubut'),
-    ('Córdoba', 'Córdoba'),
+    ('Cordoba', 'Cordoba'),
     ('Corrientes', 'Corrientes'),
-    ('Entre Ríos', 'Entre Ríos'),
+    ('Entre Rios', 'Entre Rios'),
     ('Formosa', 'Formosa'),
     ('Jujuy', 'Jujuy'),
     ('La Pampa', 'La Pampa'),
     ('La Rioja', 'La Rioja'),
     ('Mendoza', 'Mendoza'),
     ('Misiones', 'Misiones'),
-    ('Neuquén', 'Neuquén'),
-    ('Río Negro', 'Río Negro'),
+    ('Neuquen', 'Neuquen'),
+    ('Rio Negro', 'Rio Negro'),
     ('Salta', 'Salta'),
     ('San Juan', 'San Juan'),
     ('San Luis', 'San Luis'),
@@ -32,7 +33,7 @@ class Paciente(models.Model):
     ('Santa Fe', 'Santa Fe'),
     ('Santiago del Estero', 'Santiago del Estero'),
     ('Tierra del Fuego', 'Tierra del Fuego'),
-    ('Tucumán', 'Tucumán'),
+    ('Tucuman', 'Tucuman'),
 ]
 
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='pacientes')
@@ -40,6 +41,7 @@ class Paciente(models.Model):
     apellido = models.CharField(max_length=100)
     sexo = models.CharField(max_length=1, choices=SEXO_CHOICES)
     fecha_nacimiento = models.DateField()
+    edad = models.IntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(120)])
     obra_social = models.CharField(max_length=100)
     numero_afiliado = models.CharField(max_length=100)
     dni = models.CharField(max_length=20)
@@ -49,12 +51,3 @@ class Paciente(models.Model):
 
     def __str__(self):
         return f'{self.nombre} {self.apellido}'
-
-    @property
-    def edad(self):
-        import datetime
-        today = datetime.date.today()
-        age = today.year - self.fecha_nacimiento.year - (
-            (today.month, today.day) < (self.fecha_nacimiento.month, self.fecha_nacimiento.day)
-        )
-        return age

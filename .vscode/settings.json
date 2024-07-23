@@ -1,0 +1,13 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 5432,
+            "driver": "PostgreSQL",
+            "name": "mediramiDbPgsql",
+            "database": "database1",
+            "username": "postgres"
+        }
+    ]
+}

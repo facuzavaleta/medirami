@@ -7,11 +7,10 @@ class RecetaViewSet(viewsets.ModelViewSet):
     serializer_class = RecetaSerializer
 
     def perform_create(self, serializer):
-        paciente_tipo = self.request.data.get('paciente_tipo')
-        if paciente_tipo == 'existente':
-            paciente_id = self.request.data.get('paciente_existente')
-        elif paciente_tipo == 'nuevo':
-            paciente_id = None
-        
         user = self.request.user
-        serializer.save(user=user, paciente_existente_id=paciente_id)
+        paciente_id = self.request.data.get('paciente')
+
+        if paciente_id is None:
+            raise serializers.ValidationError({'error': 'El campo paciente es requerido.'})
+
+        serializer.save(user=user, paciente_id=paciente_id)
