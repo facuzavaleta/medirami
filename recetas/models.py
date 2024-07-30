@@ -22,8 +22,7 @@ class Receta(models.Model):
     proxima_fecha_empadronamiento = models.DateField()
     observaciones = models.TextField(blank=True, null=True)
     viewed = models.BooleanField(default=False)
-    tiempo_de_vida = models.DurationField(default=timedelta(days=7))  # Default tiempo de vida de 7 días
-
+    
     def __str__(self):
         return f"Receta de {self.paciente.nombre} por {self.user.username}"
 
