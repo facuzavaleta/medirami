@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'pedidos_laboratorio',
     'corsheaders',
     'recetasqr',
+    'django_ratelimit',
 ]
 
 MIDDLEWARE = [
@@ -61,6 +62,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'medirami.middleware.RateLimitMiddleware',
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
@@ -182,3 +184,13 @@ SIMPLE_JWT = {
 }
 
 AUTH_USER_MODEL = 'users.CustomUser'
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379/1',  # Asegúrate de que Redis esté corriendo en esta dirección
+    }
+}
+
+REDIS_HOST = 'localhost'
+REDIS_PORT = 6379
