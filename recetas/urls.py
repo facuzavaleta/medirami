@@ -7,5 +7,5 @@ router.register(r'', RecetaViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('<int:pk>/detail/', RecetaViewSet.as_view({'get': 'detail'}), name='receta-detail'),  # Nueva ruta para la vista detallada
+    path('<int:pk>/detail/', RecetaViewSet.as_view({'get': 'detail'}), name='receta-detail'),
 ]

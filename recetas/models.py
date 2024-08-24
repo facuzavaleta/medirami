@@ -4,14 +4,12 @@ from users.models import CustomUser
 
 class Medicacion(models.Model):
     droga = models.CharField(max_length=200)
-    dosis = models.CharField(max_length=200)
     presentacion = models.CharField(max_length=200)
     marca_recomendada = models.CharField(max_length=200, blank=True, null=True)
-    cantidad_unidades = models.IntegerField()
-    receta = models.ForeignKey('Receta', related_name='medicacion', on_delete=models.CASCADE)
 
     def __str__(self):
-        return f"{self.droga} - {self.dosis}"
+        return f"{self.droga} - {self.presentacion} - {self.marca_recomendada}"
+        
 
 class Receta(models.Model):
     paciente = models.ForeignKey(Paciente, on_delete=models.CASCADE, related_name='recetas')
@@ -21,8 +19,6 @@ class Receta(models.Model):
     fecha_ultimo_laboratorio = models.DateField()
     proxima_fecha_empadronamiento = models.DateField()
     observaciones = models.TextField(blank=True, null=True)
-    viewed = models.BooleanField(default=False)
-    tiempo_de_vida = models.DurationField(default=timedelta(days=7))  # Default tiempo de vida de 7 días
 
     def __str__(self):
         return f"Receta de {self.paciente.nombre} por {self.user.username}"
@@ -35,3 +31,13 @@ class Receta(models.Model):
 
     def formatted_fecha_ultimo_laboratorio(self):
         return self.fecha_ultimo_laboratorio.strftime('%d-%m-%Y')
+
+
+class RecetaMedicacion(models.Model):
+    receta = models.ForeignKey(Receta, on_delete=models.CASCADE, related_name='receta_medicaciones')
+    medicacion = models.ForeignKey(Medicacion, on_delete=models.CASCADE)
+    dosis = models.CharField(max_length=200)
+    cantidad_unidades = models.IntegerField(default=0)
+
+    def __str__(self):
+        return f"{self.medicacion.droga} - Dosis: {self.dosis}, Cantidad: {self.cantidad_unidades}"
