@@ -6,7 +6,7 @@ class PedidoLaboratorio(models.Model):
     paciente = models.ForeignKey(Paciente, on_delete=models.CASCADE, related_name='pedidos_laboratorio')
     pedido = models.TextField()
     fecha = models.DateField()
-    firma = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='pedidos_firmados')
+    firma_medica = models.CharField(max_length=200)
     codigo_identificacion = models.CharField(max_length=100, unique=True)
 
     def __str__(self):

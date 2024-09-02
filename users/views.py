@@ -40,6 +40,7 @@ class MyTokenObtainPairView(TokenObtainPairView):
             "user_id": user.id,
             "first_name": user.first_name,
             "last_name": user.last_name,
+            "email": user.email
         }
         return Response(response_data, status=status.HTTP_200_OK)
 
