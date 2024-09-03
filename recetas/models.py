@@ -19,6 +19,7 @@ class Receta(models.Model):
     fecha_ultimo_laboratorio = models.DateField()
     proxima_fecha_empadronamiento = models.DateField()
     observaciones = models.TextField(blank=True, null=True)
+    codigo_de_receta = models.CharField(max_length=20, blank=True, editable=False)
 
     def __str__(self):
         return f"Receta de {self.paciente.nombre} por {self.user.username}"

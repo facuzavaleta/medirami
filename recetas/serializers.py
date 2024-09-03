@@ -21,7 +21,7 @@ class RecetaSerializer(serializers.ModelSerializer):
         fields = [
             'id', 'paciente', 'user', 'firma_medica',
             'fecha_ultimo_laboratorio', 'proxima_fecha_empadronamiento',
-            'observaciones', 'receta_medicaciones'
+            'observaciones', 'receta_medicaciones','codigo_de_receta'
         ]
 
     def create(self, validated_data):

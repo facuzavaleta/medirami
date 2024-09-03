@@ -3,7 +3,6 @@ from .models import Paciente
 from users.models import CustomUser
 
 class PacienteSerializer(serializers.ModelSerializer):
-    edad = serializers.ReadOnlyField()
     user_id = serializers.PrimaryKeyRelatedField(queryset=CustomUser.objects.all(), source='user')
 
     class Meta:

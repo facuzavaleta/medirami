@@ -41,7 +41,7 @@ class Paciente(models.Model):
     apellido = models.CharField(max_length=100)
     sexo = models.CharField(max_length=1, choices=SEXO_CHOICES)
     fecha_nacimiento = models.DateField()
-    edad = models.IntegerField(default=0, validators=[MinValueValidator(0), MaxValueValidator(120)])
+    edad = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(120)])
     obra_social = models.CharField(max_length=100)
     numero_afiliado = models.CharField(max_length=100)
     dni = models.CharField(max_length=20)
