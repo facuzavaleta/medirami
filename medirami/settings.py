@@ -1,5 +1,5 @@
 from datetime import timedelta
-from urllib import urlparse
+# from urllib import urlparse
 from pathlib import Path
 import environ, os
 
