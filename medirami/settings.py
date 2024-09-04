@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'pedidos_laboratorio',
     'corsheaders',
     'recetasqr',
-    'django_ratelimit',
+    # 'django_ratelimit',
 ]
 
 MIDDLEWARE = [
