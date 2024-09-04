@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from .models import CustomUser
-from .serializers import CustomUserSerializer
+from .serializers import CustomUserSerializer, CustomTokenObtainPairSerializer
 from rest_framework import viewsets
 
 class UserCreateView(generics.CreateAPIView):
@@ -23,6 +23,26 @@ class CustomUserViewSet(viewsets.ModelViewSet):
 
 class MyTokenObtainPairView(TokenObtainPairView):
     permission_classes = (AllowAny,)
+    serializer_class = CustomTokenObtainPairSerializer
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        try:
+            serializer.is_valid(raise_exception=True)
+        except:
+            return Response({"detail": "Invalid credentials"}, status=status.HTTP_401_UNAUTHORIZED)
+        
+        user = CustomUser.objects.get(username=serializer.validated_data['username'])
+        tokens = serializer.validated_data
+        response_data = {
+            "access": tokens['access'],
+            "refresh": tokens['refresh'],
+            "user_id": user.id,
+            "first_name": user.first_name,
+            "last_name": user.last_name,
+            "email": user.email
+        }
+        return Response(response_data, status=status.HTTP_200_OK)
 
 class MyTokenRefreshView(TokenRefreshView):
     permission_classes = (AllowAny,)
