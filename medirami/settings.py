@@ -60,6 +60,27 @@ CORS_ALLOWED_ORIGINS = ['192.168.1.3','127.0.0.1',
     os.getenv('URL_FRONT')
 ]
 
+CORS_ALLOW_METHODS = [
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+]
+
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+]
+
 ROOT_URLCONF = 'medirami.urls'
 
 TEMPLATES = [
