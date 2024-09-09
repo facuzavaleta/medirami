@@ -56,9 +56,11 @@ MIDDLEWARE = [
 
 CORS_ALLOW_ALL_ORIGINS = False
 
-CORS_ALLOWED_ORIGINS = ['192.168.1.3','127.0.0.1',
+CORS_ALLOWED_ORIGINS = [
     os.getenv('URL_FRONT')
 ]
+
+print("URL_FRONT:", os.getenv('URL_FRONT'))
 
 CORS_ALLOW_METHODS = [
     'DELETE',
