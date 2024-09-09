@@ -19,7 +19,7 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = ['192.168.1.3','127.0.0.1',]
+ALLOWED_HOSTS = ['192.168.1.3','127.0.0.1',os.getenv('URL_FRONT')]
 
 # Application definition
 
@@ -54,7 +54,11 @@ MIDDLEWARE = [
     'medirami.middleware.RateLimitMiddleware',
 ]
 
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = False
+
+CORS_ALLOWED_ORIGINS = ['192.168.1.3','127.0.0.1',
+    os.getenv('URL_FRONT')
+]
 
 ROOT_URLCONF = 'medirami.urls'
 
