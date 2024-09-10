@@ -20,8 +20,12 @@ SECRET_KEY = env('SECRET_KEY')
 DEBUG = env('DEBUG')
 
 URL_FRONT = env('URL_FRONT')
+URL_BACK = env('URL_BACK')
 
-ALLOWED_HOSTS = [URL_FRONT,]
+ALLOWED_HOSTS = [
+    URL_FRONT,
+    URL_BACK
+    ]
 
 # Application definition
 
