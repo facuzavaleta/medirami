@@ -8,6 +8,7 @@ class RateLimitMiddleware:
         self.redis_client = redis.StrictRedis(
             host=settings.REDIS_HOST,
             port=settings.REDIS_PORT,
+            password=settings.REDISPASSWORD,
             db=0,
             decode_responses=True
         )
