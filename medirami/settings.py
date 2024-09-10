@@ -19,7 +19,9 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = ['192.168.1.3','127.0.0.1',os.getenv('URL_FRONT')]
+URL_FRONT = env('URL_FRONT')
+
+ALLOWED_HOSTS = [URL_FRONT,]
 
 # Application definition
 
@@ -57,10 +59,8 @@ MIDDLEWARE = [
 CORS_ALLOW_ALL_ORIGINS = False
 
 CORS_ALLOWED_ORIGINS = [
-    os.getenv('URL_FRONT')
+    URL_FRONT,
 ]
-
-print("URL_FRONT:", os.getenv('URL_FRONT'))
 
 CORS_ALLOW_METHODS = [
     'DELETE',
