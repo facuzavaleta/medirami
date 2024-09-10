@@ -220,5 +220,5 @@ CACHES = {
     }
 }
 
-# REDIS_HOST = 'localhost'
+REDIS_HOST = env('REDIS_HOST')
 REDIS_PORT = 6379
