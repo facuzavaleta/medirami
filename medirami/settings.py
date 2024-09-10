@@ -214,6 +214,10 @@ CACHES = {
     'default': {
         'BACKEND': 'django_redis.cache.RedisCache',
         'LOCATION': REDIS_URL,
+        'OPTIONS':{
+            'CLIENTS_PASS':'django.redis.client.DefaultClient',
+            'PASSWORD': env('REDISPASSWORD', default=None),
+        }
     }
 }
 
