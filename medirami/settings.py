@@ -85,6 +85,8 @@ CORS_ALLOW_HEADERS = [
 
 ROOT_URLCONF = 'medirami.urls'
 
+print("CORS_ALLOWED_ORIGINS:", CORS_ALLOWED_ORIGINS)
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
