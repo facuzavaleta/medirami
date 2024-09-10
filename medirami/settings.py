@@ -1,5 +1,5 @@
 from datetime import timedelta
-# from urllib import urlparse
+from django.core.cache.backends.redis import RedisCache
 from pathlib import Path
 import environ, os
 
@@ -207,15 +207,14 @@ SIMPLE_JWT = {
 
 AUTH_USER_MODEL = 'users.CustomUser'
 
-REDIS_URL = os.getenv('REDIS_URL',"redis://localhost:6379/1")
-REDIS_HOST = os.getenv('REDIS_HOST', 'localhost')
+REDIS_URL = env('REDIS_URL')
 
 CACHES = {
     'default': {
         'BACKEND': 'django_redis.cache.RedisCache',
         'LOCATION': REDIS_URL,
         'OPTIONS':{
-            'CLIENTS_PASS':'django.redis.client.DefaultClient',
+            'CLIENTS_CLASS':'django_redis.client.DefaultClient',
             'PASSWORD': env('REDISPASSWORD', default=None),
         }
     }
