@@ -208,6 +208,7 @@ SIMPLE_JWT = {
 AUTH_USER_MODEL = 'users.CustomUser'
 
 REDIS_URL = env('REDIS_URL')
+REDISPASSWORD = env('REDISPASSWORD')
 
 CACHES = {
     'default': {
@@ -215,7 +216,7 @@ CACHES = {
         'LOCATION': REDIS_URL,
         'OPTIONS':{
             'CLIENTS_CLASS':'django_redis.client.DefaultClient',
-            'PASSWORD': env('REDISPASSWORD', default=None),
+            'PASSWORD': env(REDISPASSWORD, default=None),
         }
     }
 }
