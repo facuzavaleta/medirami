@@ -1,5 +1,5 @@
 from datetime import timedelta
-# from urllib import urlparse
+from django.core.cache.backends.redis import RedisCache
 from pathlib import Path
 import environ, os
 
@@ -19,7 +19,13 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = ['192.168.1.3','127.0.0.1',]
+URL_FRONT = env('URL_FRONT')
+URL_BACK = env('URL_BACK')
+
+ALLOWED_HOSTS = [
+    URL_FRONT,
+    URL_BACK
+    ]
 
 # Application definition
 
@@ -39,7 +45,6 @@ INSTALLED_APPS = [
     'pedidos_laboratorio',
     'corsheaders',
     'recetasqr',
-    # 'django_ratelimit',
 ]
 
 MIDDLEWARE = [
@@ -54,7 +59,32 @@ MIDDLEWARE = [
     'medirami.middleware.RateLimitMiddleware',
 ]
 
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = False
+
+CORS_ALLOWED_ORIGINS = [
+    URL_FRONT,
+]
+
+CORS_ALLOW_METHODS = [
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+]
+
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+]
 
 ROOT_URLCONF = 'medirami.urls'
 
@@ -147,7 +177,7 @@ REST_FRAMEWORK = {
 
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=180),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
     'ROTATE_REFRESH_TOKENS': False,
     'BLACKLIST_AFTER_ROTATION': True,
@@ -169,20 +199,24 @@ SIMPLE_JWT = {
 
     'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
     'SLIDING_TOKEN_LIFETIME': timedelta(days=10),
-    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
+    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=2),
 }
 
 AUTH_USER_MODEL = 'users.CustomUser'
 
-REDIS_URL = os.getenv('REDIS_URL',"redis://localhost:6379/1")
-REDIS_HOST = os.getenv('REDIS_HOST', 'localhost')
+REDIS_URL = env('REDIS_URL')
+REDISPASSWORD = env('REDISPASSWORD')
 
 CACHES = {
     'default': {
         'BACKEND': 'django_redis.cache.RedisCache',
         'LOCATION': REDIS_URL,
+        'OPTIONS':{
+            'CLIENTS_CLASS':'django_redis.client.DefaultClient',
+            'PASSWORD': env(REDISPASSWORD, default=None),
+        }
     }
 }
 
-# REDIS_HOST = 'localhost'
+REDIS_HOST = env('REDIS_HOST')
 REDIS_PORT = 6379

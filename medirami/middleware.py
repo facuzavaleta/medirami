@@ -8,10 +8,11 @@ class RateLimitMiddleware:
         self.redis_client = redis.StrictRedis(
             host=settings.REDIS_HOST,
             port=settings.REDIS_PORT,
+            password=settings.REDISPASSWORD,
             db=0,
             decode_responses=True
         )
-        self.rate_limit = 7  # Límite de 7 solicitudes
+        self.rate_limit = 15  # Límite de 7 solicitudes
         self.window_size = 15  # Ventana de 30 segundos
 
     def __call__(self, request):
